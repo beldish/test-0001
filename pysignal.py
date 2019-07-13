@@ -3,6 +3,7 @@ import signal
 import os  
 import time  
 import sys
+import select
 
 def readConfiguration(signalNumber, frame):  
     print ('(SIGHUP) reading configuration')
@@ -40,4 +41,11 @@ if __name__ == '__main__':
     # wait in an endless loop for signals 
     while True:
         print('Waiting...')
-        time.sleep(3)
+        #time.sleep()
+	try:
+		select.select([],[],[])
+	except select.error:
+		#print "select error...signal caught"
+		pass
+
+
